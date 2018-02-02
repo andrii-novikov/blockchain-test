@@ -10,16 +10,18 @@ class ManagementController < ApplicationController
   end
 
   def status
-    status = { id: BlockchainWorkshop::Application.secrets[:node_id],
-               name: BlockchainWorkshop::Application.secrets[:name],
-               last_hash: Block.last_block_hash,
-               neighbours: Node.pluck(:node_id),
-               url: BlockchainWorkshop::Application.secrets[:url] }
-    respond_with status
+    render json: {id: BlockchainWorkshop::Application.secrets[:node_id],
+                  name: BlockchainWorkshop::Application.secrets[:name],
+                  last_hash: Block.last_block_hash,
+                  neighbours: Node.pluck(:node_id),
+                  url: BlockchainWorkshop::Application.secrets[:url]}
   end
 
   def sync
-
+    SyncService.call do
+      on(:ok) { |data| respond_with data }
+      on(:failure) { |error| failure error }
+    end
   end
 
   private

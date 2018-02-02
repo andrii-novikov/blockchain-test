@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       post :add_link
       post :add_transaction
       get :status
+      get :state, action: 'status'
       get :sync
     end
 

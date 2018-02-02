@@ -1,4 +1,4 @@
-class TransactionSerializer < ActiveModel::Serializer
+class NodeSerializer < ActiveModel::Serializer
   attribute :node_id, key: :id
-  attribute :url
+  attribute :uri
 end
