@@ -11,8 +11,10 @@ class Block < ApplicationRecord
     order(created_at: :desc).limit(1).pluck(:block_hash).first || DEFAULT_HASH
   end
 
-  def self.get_last(n)
-    order(created_at: :desc).limit(n)
+  def self.get_blocks(n = 10, prev_hash = last_block_hash)
+    return [] if n.zero? || prev_hash == DEFAULT_HASH
+    block = find_by(block_hash: prev_hash)
+    get_blocks(n.pred, block.prev_hash) + [block]
   end
 
   private

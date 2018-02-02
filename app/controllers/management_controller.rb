@@ -19,7 +19,7 @@ class ManagementController < ApplicationController
   end
 
   def sync
-    
+
   end
 
   private
