@@ -23,6 +23,7 @@ class Node < ApplicationRecord
 
   def format_url
     return if url.blank?
-    url.gsub!('http:','').gsub!('/','')
+    url.gsub!('http:','')
+    url.gsub!('/','')
   end
 end
