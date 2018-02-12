@@ -8,8 +8,10 @@ class SendUpdateService < Rectify::Command
 
   def call
     Node.where.not(node_id: block.sender_id).find_each do |node|
-      result = notify(node)
-      logger.info("Notify node #{node.node_id}: #{node.url}. Result: #{result.body}")
+      Thread.new do
+        result = notify(node)
+        logger.info("Notify node #{node.node_id}: #{node.url}. Result: #{result.body}")
+      end
     end
   end
 
@@ -17,6 +19,8 @@ class SendUpdateService < Rectify::Command
 
   def notify(node)
     Net::HTTP.post(node.update_uri, json, "Content-Type" => "application/json" )
+  rescue => e
+    logger.info("Notify node #{node.node_id}: #{node.url}. Result: #{e.message}")
   end
 
   attr_reader :block, :json, :logger
