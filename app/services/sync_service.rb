@@ -1,12 +1,12 @@
 class SyncService < Rectify::Command
-  def initialize
-    @node = Node.first
+  def initialize(id)
+    @node = id.blank? ? Node.first : Node.find_by(node_id: id)
     @logger = Rails.logger
     @error = nil
   end
 
   def call
-    return broadcast :failure, 'Neighbours empty' unless node
+    return broadcast :failure, 'Neighbour not found' unless node
     return node_error unless data
     broadcast :ok, save_data
   end

@@ -22,7 +22,7 @@ class ApplicationController < ActionController::API
   end
 
   def display_errors(resource_or_collection)
-    block = ->(r) { r.errors.full_messages.first }
+    block = ->(r) { r.respond_to?(:errors) ? r.errors.full_messages.first : r}
     collection?(resource_or_collection) ? resource_or_collection.map(&block) : block.call(resource_or_collection)
   end
 
