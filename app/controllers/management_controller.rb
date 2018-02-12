@@ -10,11 +10,7 @@ class ManagementController < ApplicationController
   end
 
   def status
-    render json: {id: BlockchainWorkshop::Application.secrets[:node_id],
-                  name: BlockchainWorkshop::Application.secrets[:name],
-                  last_hash: Block.last_block_hash,
-                  neighbours: Node.pluck(:node_id),
-                  url: BlockchainWorkshop::Application.secrets[:url]}
+    render json: StatusService.call
   end
 
   def sync
@@ -22,6 +18,10 @@ class ManagementController < ApplicationController
       on(:ok) { |data| respond_with data }
       on(:failure) { |error| failure error }
     end
+  end
+
+  def all_status
+    render json: AllStatusService.call
   end
 
   private

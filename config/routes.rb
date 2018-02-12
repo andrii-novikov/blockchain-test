@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       get :status
       get :state, action: 'status'
       get :sync
+      get :all_status
     end
 
     namespace :blockchain do
