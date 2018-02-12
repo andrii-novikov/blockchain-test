@@ -8,7 +8,7 @@ class BlockchainController < ApplicationController
 
   def get_blocks
     count = params[:count].to_i
-    respond_with Block.get_blocks(count)
+    render json: Block.get_blocks(count)
   end
 
   private
