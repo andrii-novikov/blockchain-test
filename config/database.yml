@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: blockchain-workshop_production
-  username: blockchain-workshop
-  password: <%= ENV['BLOCKCHAIN-WORKSHOP_DATABASE_PASSWORD'] %>
+  database: blockchain-workshop
+  username: blockchain
+  password: ''

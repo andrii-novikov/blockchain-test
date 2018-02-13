@@ -1,0 +1,86 @@
+upstream puma {
+  server unix:///home/rubygarage/sites/rubygarage/shared/tmp/sockets/puma.sock fail_timeout=0;
+}
+
+server {
+  listen 80;
+  listen 443 ssl;
+
+  gzip on;
+  gzip_comp_level 2;
+  gzip_http_version 1.0;
+  gzip_proxied any;
+  gzip_min_length 1100;
+  gzip_buffers 16 8k;
+  gzip_types
+    text/plain
+    text/html
+    text/css
+    text/javascript
+    application/javascript
+    application/x-javascript
+    image/svg+xml;
+  gzip_disable "MSIE [1-6].(?!.*SV1)";
+  gzip_vary on;
+
+  client_max_body_size 100m;
+
+  server_name rubygarage.org 35.176.175.188;
+
+  rewrite ^(/.*)\.html(\?.*)?$ $1$2 permanent;
+  rewrite ^(/.*)\.php(\?.*)?$ $1$2 permanent;
+  rewrite ^/(.*)/$ /$1 permanent;
+
+  root /home/rubygarage/sites/rubygarage/current/public;
+
+  ssl_certificate /etc/nginx/ssl/rubygarage_org/ssl-bundle.crt;
+  ssl_certificate_key /etc/nginx/ssl/rubygarage_org/rubygarage-ssl.key;
+  ssl_dhparam /etc/nginx/ssl/rubygarage_org/dhparam.pem;
+
+  ssl_session_timeout 24h;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers kEECDH+AES128:kEECDH:kEDH:-3DES:kRSA+AES128:kEDH+3DES:DES-CBC3-SHA:!RC4:!aNULL:!eNULL:!MD5:!EXPORT:!LOW:!SEED:!CAMELLIA:!IDEA:!PSK:!SRP:!SSLv2;
+  ssl_prefer_server_ciphers on;
+  ssl_session_cache shared:SSL:20m;
+
+  ssl_stapling on;
+  # third-party DNS servers are needed to enable ssl stapling
+  resolver 8.8.8.8 8.8.4.4 208.67.222.222 valid=300s;
+  resolver_timeout 10s;
+
+  add_header Strict-Transport-Security "max-age=31536000;";
+
+  if ($host = 'www.rubygarage.org') {
+    rewrite ^ https://$server_name$request_uri permanent;
+  }
+
+  error_page 404 /404.html;
+
+  location / {
+    try_files $uri @puma;
+  }
+
+  location = /404.html {
+    internal;
+  }
+
+  location ~*  \.(jpg|jpeg|png|gif|ico|css|js|woff)$ {
+    access_log off;
+    add_header Cache-Control "public";
+    expires 365d;
+  }
+
+  location ~* \.(?:eot|ttf|svg)$ {
+    access_log off;
+    add_header Vary Accept-Encoding;
+    expires 365d;
+  }
+
+  location @puma {
+    proxy_set_header Client-Ip $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Host $host;
+    proxy_pass http://puma;
+  }
+}

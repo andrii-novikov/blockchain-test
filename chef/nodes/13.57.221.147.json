@@ -1,0 +1,69 @@
+{
+  "authorization": {
+    "sudo": {
+      "groups": ["blockchain", "wheel", "sysadmin"],
+      "users": ["blockchain"],
+      "passwordless": "false"
+    }
+  },
+  "users": ["blockchain"],
+  "nginx": {
+    "version": "1.7.4",
+    "default_site_enabled": false,
+    "source": {
+      "modules": ["nginx::http_gzip_static_module", "nginx::http_ssl_module"]
+    }
+  },
+  "rvm": {
+    "user_installs": [{
+      "user": "blockchain",
+      "default_ruby": "2.5.0-rc1@blockchain",
+      "rubies": ["2.5.0-rc1"]
+    }]
+  },
+  "postgresql": {
+    "version": "9.3",
+    "users": [
+      {
+        "username": "blockchain",
+        "encrypted_password": "$1$mcVd44I7$z3hhPtbTdlffOQ8kn8WWm0",
+        "superuser": true,
+        "createdb": true,
+        "login": true
+      }
+    ],
+    "databases": [
+      {
+        "name": "blockchain_workshop",
+        "owner": "blockchain",
+        "template": "template0",
+        "encoding": "UTF-8",
+        "locale": "en_US.UTF-8"
+      }
+    ]
+  },
+  "swap_tuning": {
+    "minimum_size": 2048
+  },
+  "redis": {
+    "maxmemory": "256Mb"
+  },
+  "run_list": [
+    "recipe[sudo]",
+    "recipe[chef-solo-search]",
+    "recipe[users::sysadmins]",
+    "recipe[nginx::source]",
+    "recipe[monit]",
+    "recipe[rvm::user]",
+    "recipe[imagemagick::devel]",
+    "recipe[postgresql::server]",
+    "recipe[postgresql::server_dev]",
+    "recipe[postgresql::client]",
+    "recipe[nginx-production]",
+    "recipe[swap_tuning]",
+    "recipe[redis::server]"
+  ],
+  "automatic": {
+    "ipaddress": "13.57.221.147"
+  }
+}

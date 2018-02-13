@@ -1,0 +1,9 @@
+{
+  "id": "blockchain",
+  "password"  : "$1$toGQgnXv$zVzSMnw3GBgonCtwWuysT.",
+  "ssh_keys"  : [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC3DroWkXOXhy2ceXQTFLnnlKJqLAfPvRoTo90TEnoLuVbw3AEC3AXafXimMGUYsEa1cHqsOwsvXgj3DaLc91JgCoLBf3bJQu1NRYS2qyE257qRZVPKhjrUSiMxVwm+tuDDXmMMuFlSk44ek9OHNXair/MayCZ/Bw9UUZFMyJ0w7+hNS6wCR8RgMoA1+XW3Da30HIZ73AxuvXH8QkF5nmBfyWaAc+aznb+eQOAHsdxMf/PAGcH3LNy8WIFfXVvpEiInh2z1yDjNoPhEvLLQ57eqR6kfJEK+HMblXhlF3Wk3JNXNSbEOmL6o6cR6zeyzpduZN6VRMK0VsF8YIHm0NTTUoWD6e9RiyZy4Z3awQW92/UTXchi9HC+gRrzAqDme99ER+L7h7RLlDzjpEjQNuL+w8oKYyYoo1M7iXENHfHq1obDq4F90mM1KniQFLGUHYlWw0hYidHU/xXU2pzfvMyQi7d3Qo1ffYJu4pXrdmFowqGogqUWfdnOlKuLoXd0+N5EekukDcGDGGKkEla7Mp9GMTirjqG+9X/e0epAKyGBj4KTpTnw0noYzPsKJ73d/h8acsoZ1YtafEPOUKp7Y4qMdopz9OeuET8esB8dnZ6rtKdRcsN3r+uaMOmLV6YxeNSmq7s+0Ai996gWmxo08nQFw95I/OrLUW30kJDyqHueiGQ== andruha2921@gmail.com"
+  ],
+  "groups"    : ["sudo" ,"sysadmin", "www-data", "rvm"],
+  "shell"     : "\/bin\/bash"
+}

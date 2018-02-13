@@ -1,0 +1,84 @@
+SITE
+  remote: http://community.opscode.com/api/v1
+  specs:
+    7-zip (1.0.2)
+      windows (>= 1.2.2)
+    apt (2.5.3)
+    ark (0.9.0)
+      7-zip (>= 0.0.0)
+      windows (>= 0.0.0)
+    bluepill (2.3.1)
+      rsyslog (>= 0.0.0)
+    build-essential (2.0.6)
+    chef-solo-search (0.5.1)
+    chef_gem (0.1.0)
+    chef_handler (1.1.6)
+    imagemagick (0.2.3)
+    monit (0.7.1)
+    nginx (2.7.4)
+      apt (~> 2.2)
+      bluepill (~> 2.3)
+      build-essential (~> 2.0)
+      ohai (~> 2.0)
+      runit (~> 1.2)
+      yum-epel (~> 0.3)
+    nodejs (2.1.0)
+      apt (>= 0.0.0)
+      ark (>= 0.0.0)
+      build-essential (>= 0.0.0)
+      yum-epel (>= 0.0.0)
+    ohai (2.0.1)
+    rsyslog (1.12.2)
+    runit (1.5.10)
+      build-essential (>= 0.0.0)
+      yum (~> 3.0)
+      yum-epel (>= 0.0.0)
+    sudo (2.7.0)
+    swap (0.3.8)
+    swap_tuning (0.1.4)
+      swap (~> 0.3)
+    users (1.7.0)
+    windows (1.34.2)
+      chef_handler (>= 0.0.0)
+    yum (3.2.4)
+    yum-epel (0.4.0)
+      yum (~> 3.0)
+
+GIT
+  remote: https://github.com/fnichol/chef-rvm
+  ref: master
+  sha: 3d1c3dda01d5dee02a99d53783f2f11d5a0f195d
+  specs:
+    rvm (0.9.3)
+      chef_gem (>= 0.0.0)
+
+GIT
+  remote: https://github.com/phlipper/chef-postgresql.git
+  ref: master
+  sha: 4ed030dd3f6c770dd0f6a7a9bdc20f48ede448e0
+  specs:
+    postgresql (0.14.1)
+      apt (>= 1.9.0)
+
+GIT
+  remote: https://github.com/phlipper/chef-redis.git
+  ref: master
+  sha: 7476279fc9c8727f082b8d77b5e1922dc2ef437b
+  specs:
+    redis (0.5.6)
+      apt (>= 0.0.0)
+
+DEPENDENCIES
+  chef-solo-search (>= 0)
+  imagemagick (>= 0)
+  monit (>= 0)
+  nginx (>= 0)
+  nodejs (>= 0)
+  postgresql (>= 0)
+  redis (>= 0)
+  runit (>= 0)
+  rvm (>= 0)
+  sudo (>= 0)
+  swap_tuning (>= 0)
+  users (>= 0)
+
