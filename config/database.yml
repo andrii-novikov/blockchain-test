@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: blockchain-workshop
+  database: blockchain_workshop
   username: blockchain
   password: ''
