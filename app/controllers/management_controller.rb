@@ -15,7 +15,7 @@ class ManagementController < ApplicationController
 
   def sync
     SyncService.call(params[:id]) do
-      on(:ok) { |data| respond_with data }
+      on(:ok) { |data| success data }
       on(:failure) { |error| failure error }
     end
   end

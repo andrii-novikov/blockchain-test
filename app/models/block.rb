@@ -1,6 +1,6 @@
 class Block < ApplicationRecord
   DEFAULT_HASH = '0'.freeze
-  attr_accessor :sender_id
+  attr_accessor :sender_id, :skip_notify_neighbours
   validates :prev_hash, prev_hash: true, on: :create
   validates :tx, :ts, :prev_hash, presence: true
 
@@ -22,11 +22,7 @@ class Block < ApplicationRecord
   private
 
   def notify_neighbours
-    SendUpdateService.call(self)
-  end
-
-  def validate_prev_hash
-    errors.add(:prev_hash, "doesn't matched") unless prev_hash == Block.last_block_hash
+    SendUpdateService.call(self) unless skip_notify_neighbours
   end
 
   def data

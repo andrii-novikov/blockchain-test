@@ -8,7 +8,12 @@ class SyncService < Rectify::Command
   def call
     return broadcast :failure, 'Neighbour not found' unless node
     return node_error unless data
-    broadcast :ok, save_data
+
+    if save_data
+      broadcast :ok, "#{data.count} blocks was created"
+    else
+      broadcast :failure, "Broken chain. Couldn't create all blocks"
+    end
   end
 
   private
@@ -16,7 +21,16 @@ class SyncService < Rectify::Command
   def save_data
     Block.destroy_all
     Transaction.destroy_all
-    data.map! { |block| create_block(block) }
+    save_next_block('0')
+
+    data.count == Block.count
+  end
+
+  def save_next_block(prev_hash)
+    block = data.find { |b| b['prev_hash'].to_s == prev_hash }
+    return unless block
+    create_block(block)
+    save_next_block(block['hash'])
   end
 
   def node_error
@@ -25,7 +39,11 @@ class SyncService < Rectify::Command
   end
 
   def create_block(block)
-    Block.create(ts: block['ts'], tx: block['tx'], prev_hash: block['prev_hash'], block_hash: block['hash'])
+    Block.create(ts: block['ts'],
+                 tx: block['tx'],
+                 prev_hash: block['prev_hash'],
+                 block_hash: block['hash'],
+                 skip_notify_neighbours: true)
   end
 
   def data
