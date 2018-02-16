@@ -30,7 +30,7 @@ server {
   rewrite ^(/.*)\.php(\?.*)?$ $1$2 permanent;
   rewrite ^/(.*)/$ /$1 permanent;
 
-  root /home/rubygarage/sites/rubygarage/current/public;
+  root /home/blockchain/sites/blockchain-workshop/current/public;
 
   # third-party DNS servers are needed to enable ssl stapling
   resolver 8.8.8.8 8.8.4.4 208.67.222.222 valid=300s;
