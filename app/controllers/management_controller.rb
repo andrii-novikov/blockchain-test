@@ -1,4 +1,6 @@
 class ManagementController < ApplicationController
+  respond_to :json
+
   def add_link
     node = Node.create(node_id: link_params[:id], url: link_params[:url])
     respond_with node

@@ -1,4 +1,6 @@
 class BlockchainController < ApplicationController
+  respond_to :json
+
   def receive_update
     ReceiveUpdateService.call(new_block_hash, block_params, sender_id) do
       on(:failure) { |block| respond_with block }

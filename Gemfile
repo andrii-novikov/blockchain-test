@@ -21,6 +21,7 @@ gem 'puma', '~> 3.7'
 gem 'rectify'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'responders'
+gem 'haml'
 
 group :development, :test do
   gem 'pry-rails'
