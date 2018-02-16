@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180201222253) do
+ActiveRecord::Schema.define(version: 20180216085947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "blocks", force: :cascade do |t|
     t.json "tx"
-    t.integer "ts"
+    t.bigint "ts"
     t.string "block_hash"
     t.string "prev_hash"
     t.datetime "created_at", null: false
