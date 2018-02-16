@@ -1,5 +1,5 @@
 class Node < ApplicationRecord
-  SYNC_PATH = '/blockchain/get_blocks/10000'.freeze
+  SYNC_PATH = 'blockchain/get_blocks/10000'.freeze
   UPDATE_PATH = 'blockchain/receive_update'.freeze
   STATUS_PATH = 'management/status'.freeze
 
@@ -9,22 +9,26 @@ class Node < ApplicationRecord
   before_create :format_url
 
   def uri
-    URI.parse "http://#{url}"
+    cast_uri
   end
 
   def sync_uri
-    uri + SYNC_PATH
+    cast_uri(SYNC_PATH)
   end
 
   def update_uri
-    uri + UPDATE_PATH
+    cast_uri(UPDATE_PATH)
   end
 
   def status_uri
-    uri + STATUS_PATH
+    cast_uri(STATUS_PATH)
   end
 
   private
+
+  def cast_uri(path = nil, schema = 'http://')
+    URI.parse [schema + url, path].compact.join('/')
+  end
 
   def format_url
     return if url.blank?

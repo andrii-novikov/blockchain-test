@@ -27,7 +27,6 @@ class Block < ApplicationRecord
 
   def validate_prev_hash
     errors.add(:prev_hash, "doesn't matched") unless prev_hash == Block.last_block_hash
-    binding.pry unless prev_hash == Block.last_block_hash
   end
 
   def data

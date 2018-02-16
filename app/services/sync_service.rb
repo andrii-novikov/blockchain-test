@@ -25,7 +25,6 @@ class SyncService < Rectify::Command
   end
 
   def create_block(block)
-    binding.pry
     Block.create(ts: block['ts'], tx: block['tx'], prev_hash: block['prev_hash'], block_hash: block['hash'])
   end
 
