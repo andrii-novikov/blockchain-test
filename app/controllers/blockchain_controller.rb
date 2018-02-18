@@ -1,4 +1,4 @@
-class BlockchainController < ApplicationController
+class BlockchainController < ApiController
   respond_to :json
 
   def receive_update

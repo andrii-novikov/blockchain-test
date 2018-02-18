@@ -1,4 +1,4 @@
-class ManagementController < ApplicationController
+class ManagementController < ApiController
   respond_to :json
 
   def add_link
