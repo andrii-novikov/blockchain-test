@@ -1,0 +1,12 @@
+%h1 Blocks
+%table.table.table-striped
+  %thead
+    %tr
+      %th Timestamp
+      %th Prev hash
+      %th Hash
+  -@blocks.each do |block|
+    %tr
+      %td= block.ts
+      %td= block.prev_hash.last(6)
+      %td= block.block_hash.last(6)

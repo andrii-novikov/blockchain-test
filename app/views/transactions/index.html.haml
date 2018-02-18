@@ -1,0 +1,23 @@
+%h1 Transactions
+%table.table.table-striped.mb-8
+  %thead
+    %tr
+      %th From
+      %th To
+      %th Amount
+  -@transactions.each do |transaction|
+    %tr
+      %td= transaction.from
+      %td= transaction.to
+      %td= transaction.amount
+
+= form_for @transaction, url: {action: :create}, html: {class: "form"} do |f|
+  .form-row
+    .col-auto
+      = f.text_field :from, class: 'form-control'
+    .col-auto
+      = f.text_field :to, class: 'form-control'
+    .col-auto
+      = f.text_field :amount, class: 'form-control'
+    .col-auto
+      = f.submit "Create", class: 'btn btn-primary'

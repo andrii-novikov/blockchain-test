@@ -1,0 +1,20 @@
+%h1 Status
+
+%table.table.table-hover.table-light.table-striped.table-responsive
+  %tr
+    %th Id
+    %td= @status[:id]
+  %tr
+    %th Name
+    %td= @status[:name]
+  %tr
+    %th Last hash
+    %td= @status[:last_hash]
+  %tr
+    %th Url
+    %td= @status[:url]
+  %tr
+    %th Neighbors
+    %td
+      -@status[:neighbours].each do |node|
+        = link_to "#{node[:id]} - #{node[:uri].to_s}", node[:uri].to_s, class: 'btn btn-info'

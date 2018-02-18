@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root 'home#index'
-  resource :home
+
+  resources :neighbours
+  resources :blocks, only: %i[create index]
+  resources :transactions, only: %i[create index]
 
   namespace :management, format: :json do
     post :add_link

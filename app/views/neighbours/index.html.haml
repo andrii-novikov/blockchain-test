@@ -1,0 +1,10 @@
+%h1 Neighbours
+%table.table.table-hover.table-light.table-striped
+  %thead
+    %tr
+      %th Id
+      %th Url
+  -@nodes.each do |node|
+    %tr
+      %td= node.id
+      %td= node.uri.to_s
