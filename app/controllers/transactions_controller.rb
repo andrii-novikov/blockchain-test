@@ -1,18 +1,26 @@
 class TransactionsController < ApplicationController
+  before_action :set_transaction
+
   def index
     @transactions = Transaction.all
-    @transaction = Transaction.new
   end
 
   def create
-    @transactions = Transaction.all
-    @transaction = Transaction.create(transaction_params)
-    @transaction.valid? ? redirect_back(fallback_location: transactions_path) : render('index')
+    if @transaction.save
+      redirect_back(fallback_location: transactions_path)
+    else
+      @transactions = Transaction.all
+      render('index')
+    end
   end
 
   private
 
+  def set_transaction
+    @transaction = Transaction.new(transaction_params)
+  end
+
   def transaction_params
-    params.require(:transaction).permit(:from, :to, :amount)
+    params.fetch(:transaction, {}).permit(:from, :to, :amount)
   end
 end
