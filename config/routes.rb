@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   root 'home#index'
 
-  resources :neighbours
+  resources :neighbours, only: %i[create index]
   resources :blocks, only: %i[create index]
   resources :transactions, only: %i[create index]
+
+  post '/reset', to: 'home#reset'
 
   namespace :management, format: :json do
     post :add_link

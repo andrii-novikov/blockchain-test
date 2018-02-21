@@ -9,7 +9,7 @@
       %td= node.id
       %td= node.uri.to_s
 
-= form_for @node, url: {action: :create}, html: {class: "form"} do |f|
+= form_for @node, url: { action: :create }, html: { class: "form" } do |f|
   .form-row
     .col-auto
       = f.text_field :node_id, class: 'form-control'

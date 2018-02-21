@@ -3,19 +3,9 @@ class HomeController < ApplicationController
     @status = StatusService.call
   end
 
-  def neighbours
-    @nodes = Node.all
-  end
-
-  def blocks
-    @blocks = Block.all
-  end
-
-  def transactions
-    @transactions = Transaction.all
-  end
-
-  def create_transaction
-    @transactions = Transaction.all
+  def reset
+    Block.destroy_all
+    Transaction.destroy_all
+    redirect_back fallback_location: :index
   end
 end

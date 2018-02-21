@@ -7,7 +7,7 @@ class NeighboursController < ApplicationController
 
   def create
     if @node.save
-      redirect_back(fallback_location: neighbours_path)
+      redirect_back(fallback_location: :index)
     else
       @nodes = Node.all
       render('index')

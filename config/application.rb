@@ -10,7 +10,7 @@ require "action_controller/railtie"
 require "action_view/railtie"
 require "net/http"
 # require "action_cable/engine"
-# require "sprockets/railtie"
+require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -34,5 +34,7 @@ module BlockchainWorkshop
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    config.assets.debug = true
+    config.assets.quiet = true
   end
 end
